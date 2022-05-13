@@ -5,6 +5,7 @@ import Context from '../../Context';
 import {api} from '../../services/api';
 
 import * as Styles from "./styles"
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export function ListCharacters({navigation}) {
   const [listCharacter, setListCharacter] = useState([]);

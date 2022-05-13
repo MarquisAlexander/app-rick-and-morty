@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Episodes} from './screens/Episodes';
 import {ListCharacters} from './screens/ListCharacters';
 import {Profile} from './screens/Profile ';
+import { LearningReactNative } from './screens/learningGraphql';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -31,6 +32,7 @@ function MyStack() {
 function MyTabs() {
   return (
     <Tab.Navigator>
+      <Tab.Screen name="GraphQL" component={LearningReactNative} />
       <Tab.Screen name="listCharacters" component={ListCharacters} />
       <Tab.Screen name="episodes" component={Episodes} />
     </Tab.Navigator>

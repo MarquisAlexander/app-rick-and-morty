@@ -1,67 +1,102 @@
 import React, {useEffect, useState, useContext} from 'react';
-import {View, Text, FlatList, Image} from 'react-native';
+import {View, Text, FlatList, Image, ActivityIndicator} from 'react-native';
+import {useQuery} from '@apollo/react-hooks';
 
 import Context from '../../Context';
-import {api} from '../../services/api';
 
-import * as Styles from "./styles"
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import * as Styles from './styles';
+import {GET_CHARACTERS} from '../../utils/querys';
 
 export function ListCharacters({navigation}) {
+  const [total, setTotal] = useContext(Context);
   const [listCharacter, setListCharacter] = useState([]);
   const [page, setPage] = useState(1);
-  const [total, setTotal] = useContext(Context);
+  const [input, setInput] = useState('');
+  const [oldName, setOldName] = useState('');
+  const [name, setName] = useState('');
+  const {loading, error, data} = useQuery(GET_CHARACTERS, {
+    variables: {page, name},
+  });
 
   useEffect(() => {
     getListCharacter({});
-  }, []);
+  }, [data]);
 
-  async function getListCharacter({page = 1}) {
-    try {
-      console.log('dentro do try');
-      let url = `/character?page=${page}`;
-      const response = await api.get(url);
+  function updatePage({reset = false}) {
+    if (reset) setPage(1);
+    else setPage(page + 1);
+  }
+
+  function getListCharacter({filter = false}) {
+    if (oldName !== name) {
+      setListCharacter(data?.characters?.results);
+      setOldName(name);
+    } else if (data && listCharacter) {
       let array = [];
-      if (page > 1) {
-        array = listCharacter;
-        array = array.concat(response.data.results);
-        setPage(page)
-      } else {
-        array = response.data.results;
-      }
+      array = listCharacter;
+      array = array.concat(data?.characters?.results);
       setListCharacter(array);
-    } catch (error) {
-      console.log('error', error);
+    } else {
+      setListCharacter(data?.characters?.results);
     }
   }
 
-  function handleProfile({id= 0}) {
-    setTotal(id)
-    navigation.navigate("profile")
+  function handleProfile({id = 0}) {
+    setTotal(id);
+    navigation.navigate('profile');
+  }
+
+  function updateTextInput({text = ''}) {
+    setInput(text);
+  }
+
+  function sendSearch() {
+    updatePage({reset: true});
+    setName(input);
   }
 
   return (
     <Styles.Container>
-      <FlatList
-        data={listCharacter}
-        keyExtractor={item => item?.id}
-        onEndReached={() => getListCharacter({page: page + 1})}
-        onEndReachedThreshold={0.1}
-        numColumns={3}
-        renderItem={({item}) => (
-          <Styles.ContainerCharacter onPress={() => handleProfile({id: item.id})}>
-            <Image
-              source={{uri: item?.image}}
-              style={{
-                height: 100,
-                width: 100,
-                borderRadius: 50,
-              }}
+      {loading && listCharacter?.length === 0 ? (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+          }}>
+          <ActivityIndicator size={24} color={'red'} />
+        </View>
+      ) : (
+        <>
+          <Styles.ContainerTextInput>
+            <Styles.InputSearch
+              onChangeText={text => updateTextInput({text})}
+              onSubmitEditing={sendSearch}
             />
-            <Styles.Name>{item?.name}</Styles.Name>
-          </Styles.ContainerCharacter>
-        )}
-      />
+            <Text>Icon</Text>
+          </Styles.ContainerTextInput>
+          <FlatList
+            data={listCharacter}
+            keyExtractor={item => item?.id}
+            onEndReached={() => updatePage({})}
+            onEndReachedThreshold={0.1}
+            numColumns={3}
+            renderItem={({item}) => (
+              <Styles.ContainerCharacter
+                onPress={() => handleProfile({id: item.id})}>
+                <Image
+                  source={{uri: item?.image}}
+                  style={{
+                    height: 100,
+                    width: 100,
+                    borderRadius: 50,
+                  }}
+                />
+                <Styles.Name>{item?.name}</Styles.Name>
+              </Styles.ContainerCharacter>
+            )}
+          />
+        </>
+      )}
     </Styles.Container>
   );
 }

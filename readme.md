@@ -36,7 +36,7 @@ Extras:
 
 ## 📲 Download do app
 - **obs** Não foi possível disponibilizar o app nas lojas(google play/app store) por alguns motivos, minha conta para acessar o google play console está desativada, e não tenho fácil acesso ao mac para gerar um build do app para o ios. 
-- Você pode baixar o apk [clicando aqui](https://1drv.ms/u/s!As_3qllp8SMYhpUeVYMqt4qFrbGIfA?e=LOcBte).
+- Você pode baixar o apk [clicando aqui](https://1drv.ms/u/s!As_3qllp8SMYhpUhYPvR9JucvJKRoQ?e=XR0Wq2).
 
 ## 🖼 Layout
 

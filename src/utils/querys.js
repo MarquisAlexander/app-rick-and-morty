@@ -13,10 +13,13 @@ export const GET_CHARACTERS = gql`
 `;
 
 export const GET_DETAILS_CHARACTER = gql`
-  {
-    character(id: 1) {
+  query ($id: ID!) {
+    character(id: $id) {
       name
       image
+      origin {
+        name
+      }
       episode {
         name
         air_date

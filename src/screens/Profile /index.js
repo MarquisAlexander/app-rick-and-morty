@@ -16,6 +16,7 @@ export function Profile() {
     variables: {id: total},
   });
 
+  
   useEffect(() => {
     getDataCharacter();
   }, [data]);

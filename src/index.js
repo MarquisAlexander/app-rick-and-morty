@@ -16,8 +16,14 @@ export function Navigation() {
 }
 
 function MyStack() {
+
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+    screenOptions={{
+      headerTintColor: "white",
+      headerStyle: {backgroundColor: colors.background}
+    }}
+    >
       <Stack.Screen
         name="home"
         component={MyTabs}

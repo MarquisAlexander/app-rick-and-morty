@@ -14,3 +14,5 @@ export const InputSearch = styled.TextInput`
     width: 80%;
     color: #fff;
 `;
+
+export const ButtonSearch = styled.TouchableOpacity``;

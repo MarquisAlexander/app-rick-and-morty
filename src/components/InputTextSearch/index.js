@@ -1,7 +1,7 @@
 import React from 'react';
-import Icons from "react-native-vector-icons/Feather";
+import Icons from 'react-native-vector-icons/Feather';
 
-import * as Styles from "./styles"
+import * as Styles from './styles';
 
 export function InputTextSearch({
   onChangeText = () => {},
@@ -15,7 +15,9 @@ export function InputTextSearch({
         onSubmitEditing={onSubmitEditing}
         placeholder={placeholder}
       />
-      <Icons name="search" size={24} color="white" />
+      <Styles.ButtonSearch onPress={() => onSubmitEditing()}>
+        <Icons name="search" size={24} color="white" />
+      </Styles.ButtonSearch>
     </Styles.ContainerTextInput>
   );
 }

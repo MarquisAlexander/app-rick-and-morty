@@ -4,6 +4,7 @@ import {colors} from '../../assets/colors';
 export const Container = styled.ScrollView`
   background-color: ${colors.background};
   padding: 0 16px;
+  flex: 1;
   /* align-items: center; */
 `;
 
@@ -28,7 +29,7 @@ export const DefaultText = styled.Text`
   font-size: 16px;
 `;
 
-export const EpisodeContainer = styled.View`
+export const EpisodeContainer = styled.TouchableOpacity`
   flex-grow: 1;
   width: 30%;
   background-color: ${colors.secondary};

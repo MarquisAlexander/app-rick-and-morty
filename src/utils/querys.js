@@ -28,13 +28,14 @@ export const GET_EPISODES = gql`
 `;
 
 export const GET_DETAILS_EPISODE = gql`
-  query {
-    episode(id: 2) {
+query ($id: ID!) {
+    episode(id: $id) {
       name
       air_date
       characters {
         name
         image
+        id
       }
     }
   }

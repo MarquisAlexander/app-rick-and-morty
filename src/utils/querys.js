@@ -11,3 +11,31 @@ export const GET_CHARACTERS = gql`
     }
   }
 `;
+
+export const GET_EPISODES = gql`
+  query ($page: Int, $name: String) {
+    episodes(page: $page, filter: {name: $name}) {
+      info {
+        count
+      }
+      results {
+        name
+        air_date
+        id
+      }
+    }
+  }
+`;
+
+export const GET_DETAILS_EPISODE = gql`
+  query {
+    episode(id: 2) {
+      name
+      air_date
+      characters {
+        name
+        image
+      }
+    }
+  }
+`;

@@ -1,11 +1,13 @@
 import React, {useEffect, useState, useContext} from 'react';
 import {View, Text, FlatList, Image, ActivityIndicator} from 'react-native';
 import {useQuery} from '@apollo/react-hooks';
+import Icons from 'react-native-vector-icons/Feather';
 
 import Context from '../../Context';
 
 import * as Styles from './styles';
 import {GET_CHARACTERS} from '../../utils/querys';
+import {InputTextSearch} from '../../components/InputTextSearch';
 
 export function ListCharacters({navigation}) {
   const [total, setTotal] = useContext(Context);
@@ -43,7 +45,7 @@ export function ListCharacters({navigation}) {
 
   function handleProfile({id = 0}) {
     setTotal(id);
-    navigation.navigate('profile');
+    navigation.navigate('Perfil');
   }
 
   function updateTextInput({text = ''}) {
@@ -67,13 +69,11 @@ export function ListCharacters({navigation}) {
         </View>
       ) : (
         <>
-          <Styles.ContainerTextInput>
-            <Styles.InputSearch
-              onChangeText={text => updateTextInput({text})}
-              onSubmitEditing={sendSearch}
-            />
-            <Text>Icon</Text>
-          </Styles.ContainerTextInput>
+          <InputTextSearch
+            onChangeText={text => updateTextInput({text})}
+            onSubmitEditing={sendSearch}
+            placeholder="Buscar por nome"
+          />
           <FlatList
             data={listCharacter}
             keyExtractor={item => item?.id}

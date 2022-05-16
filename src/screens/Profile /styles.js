@@ -32,7 +32,7 @@ export const defaultText = styled.Text`
 export const EpisodeContainer = styled.View`
     flex-grow: 1;
     width: 30%;
-    background-color: #2D2F53;
+    background-color: ${colors.secondary};
     margin: 1%;
     padding: 10px 5px;
     align-items: center;

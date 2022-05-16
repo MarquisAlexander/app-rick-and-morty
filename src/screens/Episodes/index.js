@@ -7,6 +7,7 @@ import Context from '../../Context';
 import * as Styles from './styles';
 import {GET_EPISODES} from '../../utils/querys';
 import {InputTextSearch} from '../../components/InputTextSearch';
+import {CardEpisode} from '../../components/CardEpisode';
 
 export function Episodes({navigation}) {
   const [listCharacter, setListCharacter] = useState([]);
@@ -42,8 +43,6 @@ export function Episodes({navigation}) {
   }
 
   function handleProfile({id = 0}) {
-    console.log(id)
-    // setTotal(id);
     navigation.navigate('Detalhes', {id});
   }
 
@@ -71,12 +70,12 @@ export function Episodes({navigation}) {
         onEndReachedThreshold={0.1}
         numColumns={2}
         renderItem={({item}) => (
-          <Styles.ContainerCharacter
-            onPress={() => handleProfile({id: item.id})}>
-            <Styles.Name>Episodio: {item?.id}</Styles.Name>
-            <Styles.Name>{item?.name}</Styles.Name>
-            <Styles.Name>Exibido: {item?.air_date}</Styles.Name>
-          </Styles.ContainerCharacter>
+          <CardEpisode
+            title={item?.name}
+            air_date={item?.air_date}
+            episode={item?.id}
+            onPress={() => handleProfile({id: item.id})}
+          />
         )}
       />
     </Styles.Container>

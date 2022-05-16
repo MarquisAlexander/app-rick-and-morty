@@ -1,26 +1,30 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {View, Text, FlatList} from 'react-native';
 import Icons from 'react-native-vector-icons/Feather';
-
-import {api} from '../../services/api';
+import {useQuery} from '@apollo/react-hooks';
 
 import Context from '../../Context';
 
 import * as Styles from './styles';
+import {GET_DETAILS_CHARACTER} from '../../utils/querys';
+import {CardEpisode} from '../../components/CardEpisode';
 
 export function Profile() {
   const [total, setTotal] = useContext(Context);
   const [dataProfile, setDataProfile] = useState({});
+  const {loading, error, data} = useQuery(GET_DETAILS_CHARACTER, {
+    variables: {id: total},
+  });
 
   useEffect(() => {
     getDataCharacter();
-  }, [total]);
+  }, [data]);
 
   async function getDataCharacter() {
     try {
-      let url = `/character/${total}`;
-      const response = await api.get(url);
-      setDataProfile(response.data);
+      if (data) {
+        setDataProfile(data?.character);
+      }
     } catch (error) {}
   }
 
@@ -48,11 +52,9 @@ export function Profile() {
       <FlatList
         data={dataProfile?.episode}
         keyExtractor={item => item}
-        numColumns={3}
+        numColumns={2}
         renderItem={({item, index}) => (
-          <Styles.EpisodeContainer>
-            <Styles.defaultText>{index + 1}</Styles.defaultText>
-          </Styles.EpisodeContainer>
+          <CardEpisode episode={item.episode} title={item.name} />
         )}
       />
     </Styles.Container>

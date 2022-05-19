@@ -29,7 +29,7 @@ Extras:
   - [React navite Vector icons](https://github.com/oblador/react-native-vector-icons)
 
 ## 💻 Projeto
-- Esse app tras varias informações sobre a serie animada Rick and Morty, nele você pode encontrar uma lista com todos os personagens e todos os episodios, podendo filtrar por alguma palavra chave e ver detalhes como, "em quais episodios aquele personagem participou", "qual a origem do personagem", "quais personagens aparecem em determinado episodio" etc.
+- Esse app trás varias informações sobre a série animada Rick and Morty, nele você pode encontrar uma lista com todos os personagens e todos os episódios, podendo filtrar por alguma palavra-chave e ver detalhes como, "em quais episódios aquele personagem participou", "qual a origem do personagem", "quais personagens aparecem em determinado episódio" etc.
 
 ## 🤔 Informações
 - Todas as consultas no app são utilizando a api em GraphQL(https://rickandmortyapi.com/graphql)
